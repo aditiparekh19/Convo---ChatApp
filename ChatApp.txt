@@ -1,0 +1,16 @@
+New Project - ChatApp
+
+Tools used - 
+
+1. NodeJS
+2. Apollo
+3. Graphql
+4. Sequelize ORM - Is a promise-based node.js Orm for Postgres, MySQL, SQLite, MSSQL.
+It features a solid transaction support, relations, eager, lazy loading, read replication and more.
+npm i -g sequelize-cli
+npm list -g --depth 0
+5. SQL Server
+6. XAMPP Apache
+7. React
+8. React bootstrap
+9. VS Code

@@ -1,0 +1,9 @@
+{
+  "development": {
+    "username": "sa",
+    "password": "Sa123",
+    "database": "convo-chat",
+    "host": "LAPTOP-I2LVAAQ5",
+    "dialect": "mssql"
+  }
+}
