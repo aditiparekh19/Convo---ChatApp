@@ -4,6 +4,7 @@
     "apollo-server": "^3.13.0",
     "bcrypt": "^5.1.1",
     "graphql": "^16.8.1",
+    "jsonwebtoken": "^9.0.2",
     "sequelize": "^6.37.3",
     "tedious": "^18.2.0"
   },

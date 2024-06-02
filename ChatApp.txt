@@ -14,3 +14,7 @@ npm list -g --depth 0
 7. React
 8. React bootstrap
 9. VS Code
+10. Json Web tokens - The way our user will request data is using json web tokens. Encoded peice of data, signed from server. To check authenticity.
+
+11. React bootstrap
+12. Scss

@@ -3,7 +3,7 @@ const typeDefs = require("./typedefs");
 const resolvers = require("./resolvers");
 const { sequelize } = require("./models");
 
-const server = new ApolloServer({ typeDefs, resolvers });
+const server = new ApolloServer({ typeDefs, resolvers, context: (ctx) => ctx });
 
 server.listen().then(({ url }) => {
   console.log(`Server ready at: ${url}`);
