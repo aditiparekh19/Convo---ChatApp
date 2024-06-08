@@ -1,17 +1,20 @@
 const { ApolloServer } = require("apollo-server");
-const typeDefs = require("./typedefs");
-const resolvers = require("./resolvers");
 const { sequelize } = require("./models");
+const resolvers = require("./graphql/resolvers/index");
+const typeDefs = require("./graphql/typeDefs");
+const contextMiddleware = require("./util/contextMiddleware");
 
-const server = new ApolloServer({ typeDefs, resolvers, context: (ctx) => ctx });
-
-server.listen().then(({ url }) => {
-  console.log(`Server ready at: ${url}`);
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  context: contextMiddleware,
 });
 
-sequelize
-  .authenticate()
-  .then(() => {
-    console.log("Database Connected");
-  })
-  .catch((err) => console.log(err));
+server.listen().then(({ url }) => {
+  console.log(`🚀 Server ready at ${url}`);
+
+  sequelize
+    .authenticate()
+    .then(() => console.log("Database connected!!"))
+    .catch((err) => console.log(err));
+});

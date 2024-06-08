@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@apollo/client": "^3.8.8",
     "@apollo/server": "^4.10.4",
     "apollo-server": "^3.13.0",
     "bcrypt": "^5.1.1",
@@ -10,7 +11,7 @@
   },
   "scripts": {
     "start": "node server.js",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js --ignore client/"
   },
   "name": "convo-chatapp",
   "version": "1.0.0",

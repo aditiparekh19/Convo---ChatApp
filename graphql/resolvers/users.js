@@ -1,32 +1,21 @@
-const { users } = require("./models");
+const { users } = require("../../models");
 const { UserInputError, AuthenticationError } = require("apollo-server");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { JWT_SECRET } = require("./config/env.json");
+const { JWT_SECRET } = require("../../config/env.json");
 const { Op } = require("sequelize");
 const saltRounds = 10;
 
 module.exports = {
   Query: {
-    getUsers: async (parents, args, context) => {
+    getUsers: async (_, __, { user }) => {
       try {
-        let user;
-        if (context.req && context.req.headers.authorization) {
-          const token = context.req.headers.authorization.split("Bearer ")[1];
-          jwt.verify(token, JWT_SECRET, (err, decodedToken) => {
-            if (err) {
-              throw new AuthenticationError("Unauthenticated");
-            }
-            user = decodedToken;
-          });
-        }
+        if (!user) throw new AuthenticationError("Unauthenticated");
+
         const allUsers = await users.findAll({
-          where: {
-            username: {
-              [Op.ne]: user.username,
-            },
-          },
+          where: { username: { [Op.ne]: user.username } },
         });
+
         return allUsers;
       } catch (err) {
         throw err;
@@ -55,7 +44,7 @@ module.exports = {
         const correctPasswod = await bcrypt.compare(password, user.password);
         if (!correctPasswod) {
           errors.password = `Password is incorrect`;
-          throw new AuthenticationError(`Password is incorrect`, { errors });
+          throw new UserInputError(`Password is incorrect`, { errors });
         }
 
         //Issue a token to the user
@@ -83,12 +72,12 @@ module.exports = {
         // validate input
 
         if (username.trim() === "")
-          errors.email = "Username must not be empty.";
+          errors.username = "Username must not be empty.";
         if (email.trim() === "") errors.email = "Email must not be empty.";
         if (password.trim() === "")
-          errors.email = "Password must not be empty.";
+          errors.password = "Password must not be empty.";
         if (confirmPassword.trim() === "")
-          errors.email = "Repeat password must not be empty.";
+          errors.confirmPassword = "Repeat password must not be empty.";
 
         const existingUserName = await users.findOne({ where: { username } });
         const existingUserEmail = await users.findOne({ where: { email } });
@@ -97,7 +86,7 @@ module.exports = {
 
         // match pass and confirmPass
         if (password && confirmPassword && password !== confirmPassword) {
-          errors.email = `Passwords must match.`;
+          errors.confirmPassword = `Passwords must match.`;
         }
 
         if (Object.keys(errors).length > 0) {

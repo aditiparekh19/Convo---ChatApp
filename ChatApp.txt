@@ -18,3 +18,10 @@ npm list -g --depth 0
 
 11. React bootstrap
 12. Scss
+
+Server ->
+
+1. sequelize model:generate --name Message --attributes content:string,uuid:uuid
+2. sequelize db:migrate
+3. type, resolver
+4. context middleware
