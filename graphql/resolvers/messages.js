@@ -18,10 +18,13 @@ module.exports = {
         if (!otherUser) {
           throw new UserInputError("User not found");
         }
-        const usernames = [user.username, otherUser];
+        const usernames = [user.username, otherUser.username];
         const messages = await Message.findAll({
-          from: { [Op.in]: usernames },
-          to: { [Op.in]: usernames },
+          where: {
+            from: { [Op.in]: usernames },
+            to: { [Op.in]: usernames },
+          },
+          order: [['createdAt', 'DESC']],
         });
         return messages;
       } catch (err) {

@@ -23,5 +23,8 @@ Server ->
 
 1. sequelize model:generate --name Message --attributes content:string,uuid:uuid
 2. sequelize db:migrate
-3. type, resolver
-4. context middleware
+3. sequelize seed:generate --name create-users
+4. sequelize db:migrate:undo:all
+5. sequelize db:seed:all
+6. type, resolver
+7. context middleware

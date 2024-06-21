@@ -30,9 +30,6 @@ function Login() {
 
   const [login, { loading }] = useLazyQuery(LOGIN_USER, {
     onError: (err) => {
-      console.log(
-        err?.graphQLErrors[0]?.extensions?.errors?.extensions?.errors
-      );
       setErrors(err?.graphQLErrors[0]?.extensions?.errors?.extensions?.errors);
     },
     onCompleted(data) {
